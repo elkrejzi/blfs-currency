@@ -5,8 +5,8 @@ include 'blfs-include.php';
 
 $CHAPTER       = '9';
 $CHAPTERS      = 'Chapter 9';
-$START_PACKAGE = 'apr';
-$STOP_PACKAGE  = 'xapian-core';
+$START_PACKAGE = 'appstream-glib';
+$STOP_PACKAGE  = 'yaml';
 
 $renames = array();
 $ignores = array();
@@ -74,6 +74,10 @@ $url_fix = array (
  array( 'pkg'     => 'libusb-compat',
         'match'   => '^.*$', 
         'replace' => "http://$sf/projects/libusb/files/libusb-compat-0.1" ),
+
+ array( 'pkg'     => 'libxkbcommon',
+        'match'   => '^.*$', 
+        'replace' => "http://xkbcommon.org" ),
 
  array( 'pkg'     => 'nspr',
         'match'   => '^.*$', 

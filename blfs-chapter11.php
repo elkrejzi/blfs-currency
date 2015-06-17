@@ -5,7 +5,7 @@ include 'blfs-include.php';
 
 $CHAPTER       = '11';
 $CHAPTERS      = 'Chapter 11';
-$START_PACKAGE = 'appstream-glib';
+$START_PACKAGE = 'compface';
 $STOP_PACKAGE  = 'unixODBC';
 
 $renames = array();
@@ -16,6 +16,7 @@ $renames[ 'tidy-cvs_' ] = 'tidy-cvs';
 $ignores = array();
 
 $regex = array();
+$regex[ 'ibus'          ] = "/^.*Release (\d[\d\.]+\d).*$/";
 $regex[ 'intltool'      ] = "/^.*Latest version is (\d[\d\.]+\d).*$/";
 $regex[ 'xscreensaver'  ] = "/^.*xscreensaver-(\d[\d\.]+\d).tar.*$/";
 
@@ -25,6 +26,14 @@ $url_fix = array (
    array( //'pkg'     => 'gnome',
           'match'   => '^ftp:\/\/ftp.gnome',
           'replace' => "http://ftp.gnome" ),
+
+   array( 'pkg'     => 'highlight',
+          'match'   => '^.*$', 
+          'replace' => "http://www.andre-simon.de/zip/download.php" ),
+
+   array( 'pkg'     => 'ibus',
+          'match'   => '^.*$', 
+          'replace' => "https://github.com/ibus/ibus/releases" ),
 
    array( 'pkg'     => 'intltool',
           'match'   => '^.*$', 
@@ -137,6 +146,9 @@ function get_packages( $package, $dirpath )
 
   if ( $book_index == "lsof_" )
     return find_max( $lines, '/lsof_/', '/^.*lsof_([\d\.]+).tar.*$/' );
+
+  if ( $book_index == "qtchooser" )
+    return find_max( $lines, '/qtchooser/', '/^.*qtchooser-([\d\.]+)-.*.tar.gz.*$/' );
 
   if ( $book_index == "tree" )
     return find_max( $lines, '/tree/', '/^.*tree-([\d\.]+).tgz.*$/' );
