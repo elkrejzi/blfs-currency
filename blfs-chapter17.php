@@ -9,6 +9,7 @@ $START_PACKAGE = 'curl';
 $STOP_PACKAGE  = 're-alpine';
 
 $renames = array();
+$renames[ 'geoclue1' ] = 'geoclue2';
 $ignores = array();
 $ignores[ 'rpcnis-headers' ] = '';
 
@@ -141,14 +142,18 @@ function get_packages( $package, $dirpath )
   {
     // Customize http directories as needed
     if ( $book_index == "glib-networking" ||
-         $book_index == "libsoup"          )
+         $book_index == "libsoup"         ||
+         $book_index == "geoclue1"         )
     {
       // Parent listing
       $dirpath  = rtrim  ( $dirpath, "/" );    // Trim any trailing slash
       $position = strrpos( $dirpath, "/" );
       $dirpath  = substr ( $dirpath, 0, $position );
       $lines1   = http_get_file( $dirpath );
-      $dir      = find_even_max( $lines1, '/^\s*[\d\.]+\/.*$/', '/^\s*([\d\.]+).*$/' );
+      if ( $book_index == "geoclue1" )
+        $dir      = find_max     ( $lines1, '/^\s*[\d\.]+\/.*$/', '/^\s*([\d\.]+).*$/' );
+      else
+        $dir      = find_even_max( $lines1, '/^\s*[\d\.]+\/.*$/', '/^\s*([\d\.]+).*$/' );
       $dirpath .= "/$dir/";
     }
 
@@ -188,6 +193,9 @@ function get_packages( $package, $dirpath )
   // libtirpc  (sourceforge is inconsistent here)
   if ( $book_index == "libtirpc" )
     return find_max( $lines, '/^\s*0\.[\d\.]+\s*$/', '/^\s*(0\.[\d\.]+)\s*$/' );
+
+  if ( $book_index == "geoclue1" )
+    return find_max( $lines, "/geoclue/", "/^.*geoclue-([\d\.]*\d)\.tar.*$/" );
 
   // Most packages are in the form $package-n.n.n
   // Occasionally there are dashes (e.g. 201-1)

@@ -175,7 +175,7 @@ function get_packages( $package, $dirpath )
   // Most packages are in the form $package-n.n.n
   // Occasionally there are dashes (e.g. 201-1)
 
-  $max = find_max( $lines, "/$package/", "/^.*$package-([\d\.]*\d)\.tar.*$/", TRUE );
+  $max = find_max( $lines, "/$package/", "/^.*$package-([\d\.]*\d)\.tar.*$/", $book_index == "xf86-video-intel" ? FALSE : TRUE );
   return $max;
 }
 
