@@ -32,7 +32,7 @@ $regex[ 'libsamplerate'    ] = "/^.*libsamplerate-([\d\.]+\d).tar.*$/";
 $regex[ 'soundtouch'       ] = "/^.*Download Source Codes release ([\d\.]+\d).*$/";
 $regex[ 'xine-lib'         ] = "/^.*Download xine-lib-([\d\.]+\d).tar.*$/";
 $regex[ 'v'                ] = "/^.*fdk-aac ([\d\.]+) *$/";
-
+$regex[ 'libvdpau-va-gl'   ] = "/^.*version (\d[\d\.]+\d).*$/";
 
 $url_fix = array (
 
@@ -116,6 +116,9 @@ $url_fix = array (
           'match'   => '^.*$', 
           'replace' => "http://pkgs.fedoraproject.org/repo/pkgs/libcanberra" ),
 
+   array( 'pkg'     => 'libvdpau-va-gl',
+          'match'   => '^.*$', 
+          'replace' => "https://github.com/i-rinat/libvdpau-va-gl/releases" ),
 );
 
 function get_packages( $package, $dirpath )
