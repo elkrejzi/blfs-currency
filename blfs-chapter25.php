@@ -6,7 +6,7 @@ include 'blfs-include.php';
 $CHAPTER       = '25';
 $CHAPTERS      = 'Chapter 25';
 $START_PACKAGE = 'atk';
-$STOP_PACKAGE  = 'webkitgtk-2.6';
+$STOP_PACKAGE  = 'webkitgtk-2.8';
 
 $renames = array();
 $renames[ 'gtk+'                           ] = 'gtk+2';
@@ -24,6 +24,7 @@ $ignores = array();
 
 $regex = array();
 $regex[ 'freeglut' ] = "/^.*Download freeglut-(\d[\d\.]+\d).tar.*$/";
+$regex[ 'libepoxy' ] = "/^.*v(\d[\d\.]+\d).*$/";
 
 $url_fix = array (
 
@@ -38,6 +39,10 @@ $url_fix = array (
    array( 'pkg'     => 'imlib2',
           'match'   => '^.*$', 
           'replace' => "http://sourceforge.net/projects/enlightenment/files/imlib2-src" ),
+
+   array( 'pkg'     => 'libepoxy',
+          'match'   => '^.*$', 
+          'replace' => "https://github.com/anholt/libepoxy/releases" ),
 );
 
 function get_packages( $package, $dirpath )
@@ -91,7 +96,8 @@ function get_packages( $package, $dirpath )
          $book_index == "pango"        ||
          $book_index == "pangomm"      ||
          $book_index == "gtkmm1"       ||
-         $book_index == "goffice1"      )
+         $book_index == "goffice1"     ||
+         $book_index == "gtk-vnc"       )
     {
       // Parent listing
       $dirpath  = rtrim  ( $dirpath, "/" );    // Trim any trailing slash
@@ -99,7 +105,8 @@ function get_packages( $package, $dirpath )
       $dirpath  = substr ( $dirpath, 0, $position );
       $dirlines = http_get_file( "$dirpath/" );
 
-      if ( $book_index == "gdk-pixbuf" )
+      if ( $book_index == "gdk-pixbuf" ||
+           $book_index == "gtk-vnc"     )
         $dir      = find_max( $dirlines, '/\d$/', '/^.* ([\d\.]+)$/' );
       else
         $dir      = find_even_max( $dirlines, '/\d$/', '/^.* ([\d\.]+)$/' );
