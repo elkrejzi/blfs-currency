@@ -28,9 +28,9 @@ $regex[ 'libepoxy' ] = "/^.*v(\d[\d\.]+\d).*$/";
 
 $url_fix = array (
 
-   array( 'pkg'     => 'clutter-gst',
-          'match'   => '^.*$', 
-          'replace' => "http://ftp.gnome.org/pub/gnome/sources/clutter-gst/3.0" ),
+//   array( 'pkg'     => 'clutter-gst',
+//          'match'   => '^.*$', 
+//          'replace' => "http://ftp.gnome.org/pub/gnome/sources/clutter-gst/3.0" ),
 
    array( 'pkg'     => 'freeglut',
           'match'   => '^.*$', 
